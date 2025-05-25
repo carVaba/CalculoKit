@@ -31,6 +31,16 @@ public struct Deriver {
             let denominator = v * v
             return numerator / denominator
 
+        case .pow(let base, let exponent):
+            if case .constant(let n) = exponent {
+                // d/dx [f^n] = n * f^(n - 1) * f'
+                let powerMinusOne = Expression.constant(n - 1)
+                return .constant(n) * (base ** powerMinusOne)
+                    * evaluate(base, withRespectTo: variable)
+            } else {
+                // General case (f^g) not supported yet
+                return .constant(0)  // or: .error("Unsupported exponent")
+            }
         case .sin(let inner):
             return .cos(inner) * evaluate(inner, withRespectTo: variable)
 
