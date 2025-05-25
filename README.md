@@ -44,7 +44,24 @@ print(derivative) // Output: cos(x) + 2x
 
 ### 📦 Installation
 
-Swift Package Manager support coming soon...
+CalculoKit supports **Swift Package Manager**.
+
+Just add the following to your `Package.swift`:
+
+```swift
+.package(url: "https://github.com/carVaba/CalculoKit.git", from: "1.0.0")
+```
+
+And add `"CalculoKit"` to your target dependencies:
+
+```swift
+.target(
+    name: "YourApp",
+    dependencies: [
+        "CalculoKit"
+    ]
+)
+```
 
 ---
 
