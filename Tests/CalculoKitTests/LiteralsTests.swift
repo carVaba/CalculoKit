@@ -4,7 +4,7 @@ import Testing
 
 struct LiteralsTests {
     @Test func testConstantLiteral() {
-        let expr: Expression = 5
+        let expr: MathExpr = 5
         switch expr {
         case .constant(let value):
             #expect(value == 5.0)
@@ -14,7 +14,7 @@ struct LiteralsTests {
     }
 
     @Test func testVariableX() {
-        let expr = Expression.x
+        let expr = MathExpr.x
         switch expr {
         case .variable(let name):
             #expect(name == "x")
@@ -25,7 +25,7 @@ struct LiteralsTests {
 
     @Test func testCustomNamedVariable() {
         let theta: Variable = "theta"
-        let expr = Expression.variable(theta)
+        let expr = MathExpr.variable(theta)
         switch expr {
         case .variable(let name):
             #expect(name == "theta")

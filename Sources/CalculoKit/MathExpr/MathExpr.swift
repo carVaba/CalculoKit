@@ -1,24 +1,24 @@
 import Foundation
 
-public indirect enum Expression: Sendable {
+public indirect enum MathExpr: Sendable {
     case constant(Double)
     case variable(String)
-    case addition(Expression, Expression)
-    case subtraction(Expression, Expression)
-    case multiplication(Expression, Expression)
-    case division(Expression, Expression)
-    case pow(Expression, Expression)
-    case ln(Expression)
-    case log(Expression, base: Double)
-    case exp(Expression)
-    case sin(Expression)
-    case cos(Expression)
-    case tan(Expression)
+    case addition(MathExpr, MathExpr)
+    case subtraction(MathExpr, MathExpr)
+    case multiplication(MathExpr, MathExpr)
+    case division(MathExpr, MathExpr)
+    case pow(MathExpr, MathExpr)
+    case ln(MathExpr)
+    case log(MathExpr, base: Double)
+    case exp(MathExpr)
+    case sin(MathExpr)
+    case cos(MathExpr)
+    case tan(MathExpr)
 }
 
 // MARK: - Equatable
-extension Expression: Equatable {
-    public static func == (lhs: Expression, rhs: Expression) -> Bool {
+extension MathExpr: Equatable {
+    public static func == (lhs: MathExpr, rhs: MathExpr) -> Bool {
         switch (lhs, rhs) {
 
         // ── Primitives ──────────────────────────────────────────────
@@ -55,13 +55,13 @@ extension Expression: Equatable {
 }
 
 // MARK: - Literal Support
-extension Expression: ExpressibleByIntegerLiteral {
+extension MathExpr: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
         self = .constant(Double(value))
     }
 }
 
-extension Expression: ExpressibleByFloatLiteral {
+extension MathExpr: ExpressibleByFloatLiteral {
     public init(floatLiteral value: Double) {
         self = .constant(value)
     }

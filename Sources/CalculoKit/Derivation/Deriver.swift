@@ -3,8 +3,8 @@ import Foundation
 public struct Deriver {
     public init() {}
 
-    public func evaluate(_ expression: Expression, withRespectTo variable: Variable = .x)
-        -> Expression
+    public func evaluate(_ expression: MathExpr, withRespectTo variable: Variable = .x)
+        -> MathExpr
     {
         switch expression {
         case .constant:
@@ -32,15 +32,7 @@ public struct Deriver {
             return numerator / denominator
 
         case .pow(let base, let exponent):
-            if case .constant(let n) = exponent {
-                // d/dx [f^n] = n * f^(n - 1) * f'
-                let powerMinusOne = Expression.constant(n - 1)
-                return .constant(n) * (base ** powerMinusOne)
-                    * evaluate(base, withRespectTo: variable)
-            } else {
-                // General case (f^g) not supported yet
-                return .constant(0)  // or: .error("Unsupported exponent")
-            }
+            return deriveExponentiation(base, exponent, variable: variable)
         case .sin(let inner):
             return .cos(inner) * evaluate(inner, withRespectTo: variable)
 
@@ -54,10 +46,38 @@ public struct Deriver {
         case .exp(let inner):
             return .exp(inner) * evaluate(inner, withRespectTo: variable)
         case .log(let inner, let base):
-            let lnBase = Expression.constant(log(base))
+            let lnBase = MathExpr.constant(log(base))
             let numerator = evaluate(inner, withRespectTo: variable)
             let denominator = inner * lnBase
             return numerator / denominator
         }
+    }
+
+    // MARK: - Private helpers
+    private func deriveExponentiation(
+        _ base: MathExpr,
+        _ exponent: MathExpr,
+        variable: Variable
+    ) -> MathExpr {
+
+        // Case 1: f(x)^n  (constant exponent)
+        if case .constant(let n) = exponent {
+            return .constant(n) * (base ** .constant(n - 1))
+                * evaluate(base, withRespectTo: variable)
+        }
+
+        // Case 2: a^g(x)  (constant base)
+        if case .constant(let a) = base {
+            return (base ** exponent) * .constant(log(a))
+                * evaluate(exponent, withRespectTo: variable)
+        }
+
+        // Case 3: general f(x)^g(x)
+        let prime_f = evaluate(base, withRespectTo: variable)
+        let prime_g = evaluate(exponent, withRespectTo: variable)
+
+        let term1 = prime_g * .ln(base)
+        let term2 = exponent * prime_f / base
+        return (base ** exponent) * (term1 + term2)
     }
 }

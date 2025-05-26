@@ -2,12 +2,12 @@
 import Testing
 @testable import CalculoKit
 
-struct ExpressionTests {
+struct MathExprTests {
 
     // MARK: - Literal & Variable Tests
 
     @Test func testConstantLiteral() {
-        let expr: Expression = 5
+        let expr: MathExpr = 5
         switch expr {
         case .constant(let value):
             #expect(value == 5.0)
@@ -17,7 +17,7 @@ struct ExpressionTests {
     }
 
     @Test func testVariableX() {
-        let expr = Expression.x
+        let expr = MathExpr.x
         switch expr {
         case .variable(let name):
             #expect(name == "x")
@@ -57,7 +57,7 @@ struct ExpressionTests {
     // MARK: - Derivative Tests
 
     @Test func testDerivativeOfSinX() {
-        let expr: Expression = .sin(.x)
+        let expr: MathExpr = .sin(.x)
         let dx = Deriver().evaluate(expr, withRespectTo: .x)
 
         switch dx {
@@ -69,7 +69,7 @@ struct ExpressionTests {
     }
 
     @Test func testDerivativeOfXOverX() {
-        let expr: Expression = .x / .x
+        let expr: MathExpr = .x / .x
         let dx = Deriver().evaluate(expr, withRespectTo: .x)
 
         switch dx {
@@ -82,7 +82,7 @@ struct ExpressionTests {
 
     @Test func testDerivativeWithCustomVariable() {
         let a: Variable = "a"
-        let expr = Expression.variable(a)
+        let expr = MathExpr.variable(a)
         let da = Deriver().evaluate(expr, withRespectTo: a)
 
         switch da {

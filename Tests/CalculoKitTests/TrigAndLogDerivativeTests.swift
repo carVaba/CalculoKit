@@ -33,6 +33,6 @@ struct TrigAndLogDerivativeTests {
     @Test func testDerivativeOfLogBase2() {
         let dx = Deriver().evaluate(.log(.x, base: 2), withRespectTo: .x)
         let ln2 = log(2.0)
-        #expect(dx == 1 / (.x * Expression.constant(ln2)))
+        #expect(dx == 1 / (.x * MathExpr.constant(ln2)))
     }
 }

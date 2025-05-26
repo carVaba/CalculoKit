@@ -23,7 +23,7 @@
 import CalculoKit
 
 let x = variable("x")
-let expression: Expression = Expression {
+let expression: MathExpr = MathExpr {
     sin(x) + pow(x, 2)
 }
 
@@ -37,7 +37,7 @@ print(derivative) // Output: cos(x) + 2x
 
 > CalculoKit is just getting started. In the future, we aim to support:
 
-- Expression evaluation
+- MathExpr evaluation
 - LaTeX export
 
 ---
