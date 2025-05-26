@@ -1,4 +1,5 @@
 .DS_Store
+Example/.build
 /.build
 /Packages
 xcuserdata/
