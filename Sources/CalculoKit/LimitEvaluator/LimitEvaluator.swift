@@ -33,9 +33,19 @@ public struct LimitEvaluator {
 
         case .division(let lhs, let rhs):
             guard let l = evaluate(lhs, approaching: point, variable: variable),
-                let r = evaluate(rhs, approaching: point, variable: variable), r != 0
-            else { return nil }
-            return l / r
+                let r = evaluate(rhs, approaching: point, variable: variable) else {
+                return nil
+            }
+            if r != 0 {
+                return l / r
+            } else if l == 0 {
+                // Apply a single step of l'Hopital's rule
+                let dLhs = Deriver().evaluate(lhs, withRespectTo: variable)
+                let dRhs = Deriver().evaluate(rhs, withRespectTo: variable)
+                return evaluate(dLhs / dRhs, approaching: point, variable: variable)
+            } else {
+                return nil
+            }
 
         case .sin(let inner):
             guard let v = evaluate(inner, approaching: point, variable: variable) else {
