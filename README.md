@@ -22,12 +22,11 @@
 ```swift
 import CalculoKit
 
-let x = variable("x")
-let expression: MathExpr = MathExpr {
-    sin(x) + pow(x, 2)
+let expr = expression {
+    .sin(.x) + .x ** 2
 }
 
-let derivative = expression.derivate
+let derivative = expr.derivate()
 print(derivative) // Output: cos(x) + 2x
 ```
 
