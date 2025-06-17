@@ -1,0 +1,16 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run swift tests
+        run: swift test
+
