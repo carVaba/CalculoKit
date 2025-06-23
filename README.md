@@ -12,8 +12,10 @@
 
 ### 🚀 Features
 
-- ✅ Symbolic **derivation** of mathematical expressions
+- ✅ Symbolic **derivation** of mathematical expressions  
   > From `sin(x) + x^2` ➡️ to `cos(x) + 2x`
+- 🧠 **Evaluation** of expressions at specific points
+- 📈 **SwiftUI chart support** with smooth curve animations
 
 ---
 
@@ -33,12 +35,36 @@ print(derivative) // Output: cos(x) + 2x
 
 ---
 
+### 🖼 SwiftUI Animation Example
+
+```swift
+import CalculoKitSwiftUI
+
+CalculoChart(
+    expression: expression,
+    withRespectTo: .x,
+    xRange: -5...5
+)
+.frame(height: 300)
+```
+<p>
+  <img src="Example-Canvas.png" width="240" height="160" alt="Example Canvas" />
+</p>
+
+> 📈 Animated drawing of the curve from left to right using `Charts` and `SwiftUI`.
+
+---
+
 ### 🧱 Goals
 
 > CalculoKit is just getting started. In the future, we aim to support:
 
 - MathExpr evaluation
 - LaTeX export
+- Integration
+- Limits
+- Simplification
+- Factorization
 
 ---
 
@@ -46,19 +72,20 @@ print(derivative) // Output: cos(x) + 2x
 
 CalculoKit supports **Swift Package Manager**.
 
-Just add the following to your `Package.swift`:
+Add the following to your `Package.swift`:
 
 ```swift
 .package(url: "https://github.com/carVaba/CalculoKit.git", from: "1.0.0")
 ```
 
-And add `"CalculoKit"` to your target dependencies:
+And add `"CalculoKit"` and optionally `"CalculoKitSwiftUI"` to your dependencies:
 
 ```swift
 .target(
     name: "YourApp",
     dependencies: [
-        "CalculoKit"
+        "CalculoKit",
+        "CalculoKitSwiftUI"
     ]
 )
 ```
