@@ -2,11 +2,6 @@
 //  EvaluatorTests.swift
 //  CalculoKit
 //
-//  Created by Carlos Baez Rojas on 22/06/25.
-//
-
-
-
 import Testing
 @testable import CalculoKit
 
@@ -25,7 +20,7 @@ struct EvaluatorTests {
     }
 
     @Test func testTrig() {
-        let expr = .sin(.x)
+        let expr = MathExpr.sin(.x)
         let res = Evaluator().evaluate(expr, at: Double.pi/2)
         #expect(abs((res ?? 0) - 1) < 1e-6)
     }
