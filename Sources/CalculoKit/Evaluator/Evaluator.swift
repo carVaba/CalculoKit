@@ -69,6 +69,11 @@ public struct Evaluator {
                     return nil
                 }
                 return pow(b, e)
+            case .piecewise(let branches):
+                guard let expression = branches.first(where: {
+                    $0.condition.isSatisfied(at: value, for: variable)
+                })?.expression else { return nil }
+                return evaluate(expression, at: value, variable: variable)
         }
     }
 }

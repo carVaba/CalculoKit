@@ -119,6 +119,10 @@ public struct LimitEvaluator {
                 let e = evaluate(exp, approaching: point, variable: variable)
             else { return nil }
             return pow(b, e)
+    
+        case .piecewise(let branches):
+            // TODO: - Solve this 
+            return Evaluator().evaluate(expression, at: point, variable: variable)
         }
     }
 }
