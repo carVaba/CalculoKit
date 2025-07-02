@@ -53,6 +53,19 @@ CalculoChart(
 
 > 📈 Animated drawing of the curve from left to right using `Charts` and `SwiftUI`.
 
+### 🎨 CalculoCanvas Example
+
+```swift
+CalculoCanvas(
+    expre: piecewise {
+        when(.x < 10, then: 4)
+        when(.x == 10, then: 5)
+        when(.x > 10, then: 10)
+    },
+    domain: 0...20
+)
+```
+
 ---
 
 ### 🧱 Goals

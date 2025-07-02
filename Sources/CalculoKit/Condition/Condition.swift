@@ -19,8 +19,7 @@ public enum Condition: Sendable, Equatable {
             case .lessThanOrEqual(let v, let target) where v == variable:
                 return value <= target
             case .equalTo(let v, let target) where v == variable:
-                // TODO: Check if this is enough to compare or maybe we need to compare numerically
-                return value == target
+                return abs(value - target) < 1e-8
             case .greaterThan(let v, let target) where v == variable:
                 return value > target
             case .greaterThanOrEqual(let v, let target) where v == variable:
