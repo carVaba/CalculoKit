@@ -38,33 +38,26 @@ print(derivative) // Output: cos(x) + 2x
 ### 🖼 SwiftUI Animation Example
 
 ```swift
-import CalculoKitSwiftUI
-
-CalculoChart(
-    expression: expression,
-    withRespectTo: .x,
-    xRange: -5...5
-)
-.frame(height: 300)
+    Group {
+        CalculoCanvas(expre: .sin(.exp(.sin(.x))) + .cos(.ln(.x)),
+                      domain: 0...100)
+    }
+    Group {
+        CalculoCanvas(expre: .sin(.x),
+                      domain: 0...20)
+    }
+    Group {
+        CalculoCanvas(expre: piecewise {
+            when( .x < 10, then: 4)
+            when( .x == 10, then: 5)
+            when( .x > 10, then: 10)
+        },domain: 0...20)
+    }
 ```
+
 <p>
   <img src="Example-Canvas.png" width="240" height="160" alt="Example Canvas" />
 </p>
-
-> 📈 Animated drawing of the curve from left to right using `Charts` and `SwiftUI`.
-
-### 🎨 CalculoCanvas Example
-
-```swift
-CalculoCanvas(
-    expre: piecewise {
-        when(.x < 10, then: 4)
-        when(.x == 10, then: 5)
-        when(.x > 10, then: 10)
-    },
-    domain: 0...20
-)
-```
 
 ---
 
