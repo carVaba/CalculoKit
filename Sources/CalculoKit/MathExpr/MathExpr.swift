@@ -54,9 +54,17 @@ extension MathExpr: Equatable {
         case (.log(let a, let baseA), .log(let b, let baseB)):
             return baseA == baseB && a == b      // must match base and argument
 
+        case (.piecewise(let aItems), .piecewise(let bItems)):
+            guard aItems.count == bItems.count else { return false }
+            for (lhsItem, rhsItem) in zip(aItems, bItems) {
+                if lhsItem.condition != rhsItem.condition || lhsItem.expression != rhsItem.expression {
+                    return false
+                }
+            }
+            return true
+
         // Different cases ≠
         default:
-            // TODO: Add missing piecewise comparasion
             return false
         }
     }

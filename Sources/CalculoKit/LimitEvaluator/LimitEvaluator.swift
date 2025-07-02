@@ -121,8 +121,16 @@ public struct LimitEvaluator {
             return pow(b, e)
     
         case .piecewise(let branches):
-            // TODO: - Solve this 
-            return Evaluator().evaluate(expression, at: point, variable: variable)
+            guard let expr = branches.first(where: { item in
+                item.condition.isSatisfied(at: point, for: variable)
+            })?.expression else {
+                return nil
+            }
+            return evaluate(expr,
+                           approaching: point,
+                           variable: variable,
+                           tolerance: tolerance,
+                           maxIterations: maxIterations)
         }
     }
 }
