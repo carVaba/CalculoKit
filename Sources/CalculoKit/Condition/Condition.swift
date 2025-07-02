@@ -5,7 +5,6 @@
 //  Created by Carlos Baez Rojas on 2/07/25.
 //
 
-
 public enum Condition: Sendable, Equatable {
     case lessThan(Variable, Double)
     case lessThanOrEqual(Variable, Double)
@@ -20,7 +19,8 @@ public enum Condition: Sendable, Equatable {
             case .lessThanOrEqual(let v, let target) where v == variable:
                 return value <= target
             case .equalTo(let v, let target) where v == variable:
-                return abs(value - target) < 1e-8
+                // TODO: Check if this is enough to compare or maybe we need to compare numerically
+                return value == target
             case .greaterThan(let v, let target) where v == variable:
                 return value > target
             case .greaterThanOrEqual(let v, let target) where v == variable:
@@ -30,3 +30,4 @@ public enum Condition: Sendable, Equatable {
         }
     }
 }
+

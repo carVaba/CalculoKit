@@ -7,61 +7,68 @@ public struct Deriver {
         -> MathExpr
     {
         switch expression {
-        case .constant:
-            return 0
-
-        case .variable(let name):
-            return name == variable.rawValue ? 1 : 0
-
-        case .addition(let lhs, let rhs):
-            return evaluate(lhs, withRespectTo: variable) + evaluate(rhs, withRespectTo: variable)
-
-        case .subtraction(let lhs, let rhs):
-            return evaluate(lhs, withRespectTo: variable) - evaluate(rhs, withRespectTo: variable)
-
-        case .multiplication(let u, let v):
-            let du = evaluate(u, withRespectTo: variable)
-            let dv = evaluate(v, withRespectTo: variable)
-            return du * v + u * dv
-
-        case .division(let u, let v):
-            let du = evaluate(u, withRespectTo: variable)
-            let dv = evaluate(v, withRespectTo: variable)
-            let numerator = du * v - u * dv
-            let denominator = v * v
-            return numerator / denominator
-
-        case .pow(let base, let exponent):
-            return deriveExponentiation(base, exponent, variable: variable)
-        case .sin(let inner):
-            return .cos(inner) * evaluate(inner, withRespectTo: variable)
-
-        case .cos(let inner):
-            return .constant(-1) * .sin(inner) * evaluate(inner, withRespectTo: variable)
-
-        case .tan(let inner):
-            return (1 + .tan(inner) * .tan(inner)) * evaluate(inner, withRespectTo: variable)
-
-        case .asin(let inner):
-            let innerPrime = evaluate(inner, withRespectTo: variable)
-            return innerPrime / ((1 - inner * inner) ** 0.5)
-
-        case .acos(let inner):
-            let innerPrime = evaluate(inner, withRespectTo: variable)
-            return .constant(-1) * innerPrime / ((1 - inner * inner) ** 0.5)
-
-        case .atan(let inner):
-            let innerPrime = evaluate(inner, withRespectTo: variable)
-            return innerPrime / (1 + inner * inner)
-        case .ln(let inner):
-            return evaluate(inner, withRespectTo: variable) / inner
-        case .exp(let inner):
-            return .exp(inner) * evaluate(inner, withRespectTo: variable)
-        case .log(let inner, let base):
-            let lnBase = MathExpr.constant(log(base))
-            let numerator = evaluate(inner, withRespectTo: variable)
-            let denominator = inner * lnBase
-            return numerator / denominator
+            case .constant:
+                return 0
+                
+            case .variable(let name):
+                return name == variable.rawValue ? 1 : 0
+                
+            case .addition(let lhs, let rhs):
+                return evaluate(lhs, withRespectTo: variable) + evaluate(rhs, withRespectTo: variable)
+                
+            case .subtraction(let lhs, let rhs):
+                return evaluate(lhs, withRespectTo: variable) - evaluate(rhs, withRespectTo: variable)
+                
+            case .multiplication(let u, let v):
+                let du = evaluate(u, withRespectTo: variable)
+                let dv = evaluate(v, withRespectTo: variable)
+                return du * v + u * dv
+                
+            case .division(let u, let v):
+                let du = evaluate(u, withRespectTo: variable)
+                let dv = evaluate(v, withRespectTo: variable)
+                let numerator = du * v - u * dv
+                let denominator = v * v
+                return numerator / denominator
+                
+            case .pow(let base, let exponent):
+                return deriveExponentiation(base, exponent, variable: variable)
+            case .sin(let inner):
+                return .cos(inner) * evaluate(inner, withRespectTo: variable)
+                
+            case .cos(let inner):
+                return .constant(-1) * .sin(inner) * evaluate(inner, withRespectTo: variable)
+                
+            case .tan(let inner):
+                return (1 + .tan(inner) * .tan(inner)) * evaluate(inner, withRespectTo: variable)
+                
+            case .asin(let inner):
+                let innerPrime = evaluate(inner, withRespectTo: variable)
+                return innerPrime / ((1 - inner * inner) ** 0.5)
+                
+            case .acos(let inner):
+                let innerPrime = evaluate(inner, withRespectTo: variable)
+                return .constant(-1) * innerPrime / ((1 - inner * inner) ** 0.5)
+                
+            case .atan(let inner):
+                let innerPrime = evaluate(inner, withRespectTo: variable)
+                return innerPrime / (1 + inner * inner)
+            case .ln(let inner):
+                return evaluate(inner, withRespectTo: variable) / inner
+            case .exp(let inner):
+                return .exp(inner) * evaluate(inner, withRespectTo: variable)
+            case .log(let inner, let base):
+                let lnBase = MathExpr.constant(log(base))
+                let numerator = evaluate(inner, withRespectTo: variable)
+                let denominator = inner * lnBase
+                return numerator / denominator
+            case .piecewise(let branches):
+                let newBranches = branches.map { item in
+                    let expression = evaluate(item.expression, withRespectTo: variable)
+                    return PieceWiseItem(condition: item.condition,
+                                         expression: expression)
+                }
+                return .piecewise(newBranches)
         }
     }
 

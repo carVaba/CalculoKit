@@ -17,6 +17,7 @@ public indirect enum MathExpr: Sendable {
     case asin(MathExpr)
     case acos(MathExpr)
     case atan(MathExpr)
+    case piecewise([PieceWiseItem])
 }
 
 // MARK: - Equatable
@@ -55,6 +56,7 @@ extension MathExpr: Equatable {
 
         // Different cases ≠
         default:
+            // TODO: Add missing piecewise comparasion
             return false
         }
     }
