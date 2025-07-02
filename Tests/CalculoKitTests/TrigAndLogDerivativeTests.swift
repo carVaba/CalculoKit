@@ -20,6 +20,24 @@ struct TrigAndLogDerivativeTests {
         #expect(dx == expected)
     }
 
+    @Test func testDerivativeOfAsinX() {
+        let dx = Deriver().evaluate(.asin(.x), withRespectTo: .x)
+        let expected = 1 / ((1 - .x * .x) ** 0.5)
+        #expect(dx == expected)
+    }
+
+    @Test func testDerivativeOfAcosX() {
+        let dx = Deriver().evaluate(.acos(.x), withRespectTo: .x)
+        let expected = .constant(-1) / ((1 - .x * .x) ** 0.5)
+        #expect(dx == expected)
+    }
+
+    @Test func testDerivativeOfAtanX() {
+        let dx = Deriver().evaluate(.atan(.x), withRespectTo: .x)
+        let expected = 1 / (1 + .x * .x)
+        #expect(dx == expected)
+    }
+
     @Test func testDerivativeOfLnX() {
         let dx = Deriver().evaluate(.ln(.x), withRespectTo: .x)
         #expect(dx == 1 / .x)

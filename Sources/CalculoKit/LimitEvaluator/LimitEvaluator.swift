@@ -78,6 +78,24 @@ public struct LimitEvaluator {
             }
             return tan(v)
 
+        case .asin(let inner):
+            guard let v = evaluate(inner, approaching: point, variable: variable), v >= -1, v <= 1 else {
+                return nil
+            }
+            return asin(v)
+
+        case .acos(let inner):
+            guard let v = evaluate(inner, approaching: point, variable: variable), v >= -1, v <= 1 else {
+                return nil
+            }
+            return acos(v)
+
+        case .atan(let inner):
+            guard let v = evaluate(inner, approaching: point, variable: variable) else {
+                return nil
+            }
+            return atan(v)
+
         case .ln(let inner):
             guard let v = evaluate(inner, approaching: point, variable: variable), v > 0 else {
                 return nil

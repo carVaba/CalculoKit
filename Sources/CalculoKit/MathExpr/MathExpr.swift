@@ -14,6 +14,9 @@ public indirect enum MathExpr: Sendable {
     case sin(MathExpr)
     case cos(MathExpr)
     case tan(MathExpr)
+    case asin(MathExpr)
+    case acos(MathExpr)
+    case atan(MathExpr)
 }
 
 // MARK: - Equatable
@@ -36,7 +39,10 @@ extension MathExpr: Equatable {
         // ── Unary trig ─────────────────────────────────────────────
         case (.sin(let a), .sin(let b)),
              (.cos(let a), .cos(let b)),
-             (.tan(let a), .tan(let b)):
+             (.tan(let a), .tan(let b)),
+             (.asin(let a), .asin(let b)),
+             (.acos(let a), .acos(let b)),
+             (.atan(let a), .atan(let b)):
             return a == b
 
         // ── Log / Exp ──────────────────────────────────────────────

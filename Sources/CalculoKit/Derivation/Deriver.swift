@@ -41,6 +41,18 @@ public struct Deriver {
 
         case .tan(let inner):
             return (1 + .tan(inner) * .tan(inner)) * evaluate(inner, withRespectTo: variable)
+
+        case .asin(let inner):
+            let innerPrime = evaluate(inner, withRespectTo: variable)
+            return innerPrime / ((1 - inner * inner) ** 0.5)
+
+        case .acos(let inner):
+            let innerPrime = evaluate(inner, withRespectTo: variable)
+            return .constant(-1) * innerPrime / ((1 - inner * inner) ** 0.5)
+
+        case .atan(let inner):
+            let innerPrime = evaluate(inner, withRespectTo: variable)
+            return innerPrime / (1 + inner * inner)
         case .ln(let inner):
             return evaluate(inner, withRespectTo: variable) / inner
         case .exp(let inner):

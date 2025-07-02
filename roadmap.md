@@ -6,17 +6,17 @@ This document tracks the progress of core features in the symbolic math library.
 
 ## ✅ Feature Roadmap
 
-### 1. Simplification Rules  
+### 1. Simplification Rules
 _Core logic to reduce and clean expressions (e.g., `x + 0 → x`, `x * 1 → x`)._
 
-- [ ] Simplification Rules implemented and tested
+- [x] Simplification Rules implemented and tested
 
 ---
 
-### 2. Trigonometric Support  
+### 2. Trigonometric Support
 _Support for `sin`, `cos`, `tan` expressions, their derivatives, and evaluations._
 
-- [ ] Trigonometric Support implemented and tested
+- [x] Trigonometric Support implemented and tested
 
 ---
 
