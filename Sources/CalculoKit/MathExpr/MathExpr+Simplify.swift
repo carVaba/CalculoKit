@@ -1,5 +1,5 @@
-    // Simplification utilities for MathExpr
-    // Implements recursive simplification rules like x + 0 -> x, x * 1 -> x
+// Simplification utilities for MathExpr
+// Implements recursive simplification rules like x + 0 -> x, x * 1 -> x
 import Foundation
 
 extension MathExpr {

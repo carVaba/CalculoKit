@@ -2,10 +2,8 @@ import Foundation
 
 public struct Deriver {
     public init() {}
-
-    public func evaluate(_ expression: MathExpr, withRespectTo variable: Variable = .x)
-        -> MathExpr
-    {
+    
+    public func evaluate(_ expression: MathExpr, withRespectTo variable: Variable = .x) -> MathExpr {
         switch expression {
             case .constant:
                 return 0
@@ -71,30 +69,30 @@ public struct Deriver {
                 return .piecewise(newBranches)
         }
     }
-
-    // MARK: - Private helpers
+    
+        // MARK: - Private helpers
     private func deriveExponentiation(
         _ base: MathExpr,
         _ exponent: MathExpr,
         variable: Variable
     ) -> MathExpr {
-
-        // Case 1: f(x)^n  (constant exponent)
+        
+            // Case 1: f(x)^n  (constant exponent)
         if case .constant(let n) = exponent {
             return .constant(n) * (base ** .constant(n - 1))
-                * evaluate(base, withRespectTo: variable)
+            * evaluate(base, withRespectTo: variable)
         }
-
-        // Case 2: a^g(x)  (constant base)
+        
+            // Case 2: a^g(x)  (constant base)
         if case .constant(let a) = base {
             return (base ** exponent) * .constant(log(a))
-                * evaluate(exponent, withRespectTo: variable)
+            * evaluate(exponent, withRespectTo: variable)
         }
-
-        // Case 3: general f(x)^g(x)
+        
+            // Case 3: general f(x)^g(x)
         let prime_f = evaluate(base, withRespectTo: variable)
         let prime_g = evaluate(exponent, withRespectTo: variable)
-
+        
         let term1 = prime_g * .ln(base)
         let term2 = exponent * prime_f / base
         return (base ** exponent) * (term1 + term2)
