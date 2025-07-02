@@ -43,7 +43,7 @@ public struct Evaluator {
                 guard let v = evaluate(inner, at: value, variable: variable), v > 0 else { return nil }
                 return log(v)
             case .log(let inner, let base):
-                guard let v = evaluate(inner, at: value, variable: variable), v > 0 else { return nil }
+                guard let v = evaluate(inner, at: value, variable: variable), v > 0, base > 0, base != 1 else { return nil }
                 return log(v) / log(base)
             case .exp(let inner):
                 guard let v = evaluate(inner, at: value, variable: variable) else { return nil }
@@ -51,6 +51,14 @@ public struct Evaluator {
             case .pow(let base, let exp):
                 guard let b = evaluate(base, at: value, variable: variable),
                       let e = evaluate(exp, at: value, variable: variable) else { return nil }
+                if b < 0 && abs(e - round(e)) > 1e-10 {
+                    /*
+                     This line means:
+                     1. If the base is negative
+                     2. And the exponent is not an integer (we check if it’s very close to a rounded value)
+                     */
+                    return nil
+                }
                 return pow(b, e)
         }
     }
