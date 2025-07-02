@@ -25,6 +25,12 @@ struct EvaluatorTests {
         #expect(abs((res ?? 0) - 1) < 1e-6)
     }
 
+    @Test func testInverseTrig() {
+        let expr = MathExpr.asin(.constant(1))
+        let res = Evaluator().evaluate(expr, at: 0)
+        #expect(abs((res ?? 0) - Double.pi/2) < 1e-6)
+    }
+
     @Test func testDivisionByZero() {
         let expr = 1 / .x
         #expect(Evaluator().evaluate(expr, at: 0) == nil)

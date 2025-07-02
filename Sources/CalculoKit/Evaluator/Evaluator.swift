@@ -39,6 +39,15 @@ public struct Evaluator {
             case .tan(let inner):
                 guard let v = evaluate(inner, at: value, variable: variable) else { return nil }
                 return tan(v)
+            case .asin(let inner):
+                guard let v = evaluate(inner, at: value, variable: variable), v >= -1, v <= 1 else { return nil }
+                return asin(v)
+            case .acos(let inner):
+                guard let v = evaluate(inner, at: value, variable: variable), v >= -1, v <= 1 else { return nil }
+                return acos(v)
+            case .atan(let inner):
+                guard let v = evaluate(inner, at: value, variable: variable) else { return nil }
+                return atan(v)
             case .ln(let inner):
                 guard let v = evaluate(inner, at: value, variable: variable), v > 0 else { return nil }
                 return log(v)

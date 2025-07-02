@@ -31,6 +31,15 @@ extension MathExpr: CustomStringConvertible {
         case .tan(let expr):
             return "tan(\(expr))"
 
+        case .asin(let expr):
+            return "asin(\(expr))"
+
+        case .acos(let expr):
+            return "acos(\(expr))"
+
+        case .atan(let expr):
+            return "atan(\(expr))"
+
         case .ln(let expr):
             return "ln(\(expr))"
 
