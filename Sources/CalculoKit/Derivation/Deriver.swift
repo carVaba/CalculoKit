@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Deriver {
+public struct Deriver: Sendable {
     public init() {}
     
     public func evaluate(_ expression: MathExpr, withRespectTo variable: Variable = .x) -> MathExpr {

@@ -4,7 +4,7 @@
 //
 import Foundation
 
-public struct Evaluator {
+public struct Evaluator: Sendable {
     public init() {}
 
     public func evaluate(_ expr: MathExpr, at value: Double, variable: Variable = .x) -> Double? {

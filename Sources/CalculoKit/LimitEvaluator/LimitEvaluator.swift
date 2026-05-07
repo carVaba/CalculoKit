@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LimitEvaluator {
+public struct LimitEvaluator: Sendable {
     public init() {}
 
     public func evaluate(

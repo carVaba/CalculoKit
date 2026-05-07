@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -17,13 +17,23 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(name: "CalculoKitSwiftUI",
                 dependencies: ["CalculoKit"],
-                path: "Sources/CalculoKitSwiftUI"
+                path: "Sources/CalculoKitSwiftUI",
+                swiftSettings: [
+                    .enableExperimentalFeature("StrictConcurrency")
+                ]
         ),
         .target(
-            name: "CalculoKit"),
+            name: "CalculoKit",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
+        ),
         .testTarget(
             name: "CalculoKitTests",
-            dependencies: ["CalculoKit"]
+            dependencies: ["CalculoKit"],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
         ),
     ]
 )
