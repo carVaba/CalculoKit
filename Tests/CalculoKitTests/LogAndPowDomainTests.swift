@@ -13,8 +13,32 @@ struct LogAndPowDomainTests {
         #expect(abs(result! - 2.0) < 1e-6)
     }
 
-    @Test func testLogOfNegativeBase() {
+    @Test func testLogOfNegativeValue() {
         let expr = MathExpr.log(-10, base: 10)
+        let result = Evaluator().evaluate(expr, at: 0, variable: .x)
+        #expect(result == nil)
+    }
+
+    @Test func testLogOfZero() {
+        let expr = MathExpr.log(0, base: 10)
+        let result = Evaluator().evaluate(expr, at: 0, variable: .x)
+        #expect(result == nil)
+    }
+
+    @Test func testLnValid() {
+        let expr = MathExpr.ln(MathExpr.constant(exp(1)))
+        let result = Evaluator().evaluate(expr, at: 0, variable: .x)
+        #expect(abs(result! - 1.0) < 1e-6)
+    }
+
+    @Test func testLnOfNegativeValue() {
+        let expr = MathExpr.ln(-5)
+        let result = Evaluator().evaluate(expr, at: 0, variable: .x)
+        #expect(result == nil)
+    }
+
+    @Test func testLnOfZero() {
+        let expr = MathExpr.ln(0)
         let result = Evaluator().evaluate(expr, at: 0, variable: .x)
         #expect(result == nil)
     }
