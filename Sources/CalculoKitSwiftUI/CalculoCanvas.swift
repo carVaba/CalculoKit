@@ -23,9 +23,9 @@ public struct CalculoCanvas: View {
     
     // MARK: – Body
     public var body: some View {
+        let evaluator = Evaluator()
         Chart {
             LinePlot(x: "X", y: expre.description, domain: domain) { double in
-                let evaluator = Evaluator()
                 return evaluator.evaluate(expre, at: double) ?? 0.0
             }
         }
