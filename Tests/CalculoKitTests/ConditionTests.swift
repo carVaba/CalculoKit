@@ -29,7 +29,6 @@ struct ConditionTests {
         // Create conditions for .x, but evaluate for .y
         // All should return false regardless of the value
 
-        let value = 5.0
         let target = 5.0
 
         #expect(Condition.lessThan(.x, target).isSatisfied(at: 2.0, for: .y) == false)

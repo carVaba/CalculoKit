@@ -3,6 +3,7 @@
 //  CalculoKit
 //
 import Testing
+import Foundation
 @testable import CalculoKit
 
 struct LogAndPowDomainTests {
