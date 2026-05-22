@@ -103,7 +103,7 @@ public struct LimitEvaluator: Sendable {
             return log(v)
 
         case .log(let inner, let base):
-            guard let v = evaluate(inner, approaching: point, variable: variable), v > 0 else {
+            guard let v = evaluate(inner, approaching: point, variable: variable), v > 0, base > 0, base != 1 else {
                 return nil
             }
             return log(v) / log(base)
