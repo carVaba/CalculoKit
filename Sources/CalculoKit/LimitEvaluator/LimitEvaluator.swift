@@ -39,6 +39,7 @@ public struct LimitEvaluator: Sendable {
         case .division(let lhs, let rhs):
             var numerator = lhs
             var denominator = rhs
+            let deriver = Deriver()
             for _ in 0..<maxIterations {
                 guard let l = evaluate(numerator, approaching: point, variable: variable,
                                        tolerance: tolerance, maxIterations: maxIterations),
@@ -55,8 +56,8 @@ public struct LimitEvaluator: Sendable {
                     return nil
                 }
                 
-                numerator = Deriver().evaluate(numerator, withRespectTo: variable)
-                denominator = Deriver().evaluate(denominator, withRespectTo: variable)
+                numerator = deriver.evaluate(numerator, withRespectTo: variable)
+                denominator = deriver.evaluate(denominator, withRespectTo: variable)
             }
             return nil
 
